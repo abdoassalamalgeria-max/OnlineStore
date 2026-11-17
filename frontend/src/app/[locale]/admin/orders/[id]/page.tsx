@@ -8,7 +8,7 @@ import { intlLocale } from "@/i18n/config";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import { orderAction } from "@/lib/actions/admin";
 import { ApiError } from "@/lib/api/client";
-import { userApi } from "@/lib/api/server-client";
+import { adminApi } from "@/lib/api/server-client";
 import { formatDzd } from "@/lib/format";
 
 const guid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -34,7 +34,7 @@ async function OrderAdmin({ params }: Pick<PageProps<"/[locale]/admin/orders/[id
   const { id } = await params;
   if (!guid.test(id)) notFound();
 
-  const api = await userApi();
+  const api = await adminApi();
   const { data: order, response } = await api.GET("/api/v1/admin/orders/{id}", {
     params: { path: { id } },
   });

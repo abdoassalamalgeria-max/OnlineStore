@@ -173,7 +173,9 @@ Never commit secrets. Dev: `dotnet user-secrets` on `BookStore.Api`. Docker/prod
 - Frontend admin lives in `app/[locale]/admin` (layout gate = UX only: guests → login, non-admins → 404).
   Mutations are Server Actions in `src/lib/actions/admin.ts`; they `updateTag("catalog")` (+ `book:{slug}`) so the
   public catalog updates immediately. Admin data components call `connection()` first so `next build` never
-  fetches from the API. Server Action body limit is 6 MB (`next.config.ts`) for cover uploads.
+  fetches from the API. Admin pages fetch through `adminApi()` (not `userApi()`): it repeats the role check, because
+  layout and page render in parallel and the page would otherwise call the admin API (401/403 → logged errors)
+  for guests and customers while the gate redirects. Server Action body limit is 6 MB (`next.config.ts`) for cover uploads.
 - `BookCover` uses `unoptimized` (covers are pre-optimized; Next 16 blocks optimizing local-IP images).
 
 ## Deployment (Supabase)

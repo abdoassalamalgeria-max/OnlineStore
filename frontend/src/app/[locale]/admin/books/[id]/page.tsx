@@ -6,7 +6,7 @@ import { CoverUploader } from "@/components/admin/cover-uploader";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import { getAuthors, getCategories } from "@/lib/api/catalog";
 import { ApiError } from "@/lib/api/client";
-import { userApi } from "@/lib/api/server-client";
+import { adminApi } from "@/lib/api/server-client";
 
 const guid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -28,7 +28,7 @@ async function Editor({ params }: Pick<PageProps<"/[locale]/admin/books/[id]">, 
   const { id } = await params;
   if (!guid.test(id)) notFound();
 
-  const api = await userApi();
+  const api = await adminApi();
   const [{ data: book, response }, authors, categories] = await Promise.all([
     api.GET("/api/v1/admin/books/{id}", { params: { path: { id } } }),
     getAuthors(),

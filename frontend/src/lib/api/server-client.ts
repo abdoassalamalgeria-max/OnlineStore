@@ -1,7 +1,9 @@
 import createClient from "openapi-fetch";
 import { headers } from "next/headers";
+import { notFound, redirect } from "next/navigation";
 import { connection } from "next/server";
-import { getAccessToken } from "@/lib/auth/session";
+import { getLocale } from "@/i18n/dictionaries";
+import { getAccessToken, getSessionUser } from "@/lib/auth/session";
 import type { paths } from "./schema";
 
 /**
@@ -28,4 +30,23 @@ export async function userApi() {
     headers: requestHeaders,
     cache: "no-store",
   });
+}
+
+/**
+ * `userApi()` for admin pages, after the same check as the admin layout gate. Layout and page render
+ * in parallel, so without this a guest or customer opening /admin/... would still fire the page's
+ * admin API calls (401/403, logged as server errors) while the layout redirects or 404s.
+ * The API remains the real authority on every admin endpoint.
+ */
+export async function adminApi() {
+  await connection();
+  const user = await getSessionUser();
+  if (!user) {
+    const locale = await getLocale();
+    redirect(`/${locale}/login?returnTo=${encodeURIComponent(`/${locale}/admin`)}`);
+  }
+  if (!user.roles.includes("Admin")) {
+    notFound();
+  }
+  return userApi();
 }

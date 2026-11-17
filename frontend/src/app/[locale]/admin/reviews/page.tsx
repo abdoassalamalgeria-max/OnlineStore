@@ -6,7 +6,7 @@ import { intlLocale } from "@/i18n/config";
 import { format, getDictionary, getLocale } from "@/i18n/dictionaries";
 import { deleteReviewAsAdmin } from "@/lib/actions/admin";
 import { ApiError } from "@/lib/api/client";
-import { userApi } from "@/lib/api/server-client";
+import { adminApi } from "@/lib/api/server-client";
 
 export default async function AdminReviewsPage({
   searchParams,
@@ -28,7 +28,7 @@ async function Reviews({
   const t = await getDictionary();
   const locale = await getLocale();
   const page = Math.max(1, Number((await searchParams).page) || 1);
-  const api = await userApi();
+  const api = await adminApi();
   const { data, response } = await api.GET("/api/v1/admin/reviews", {
     params: { query: { page, pageSize: 20 } },
   });

@@ -6,7 +6,7 @@ import { Pagination } from "@/components/pagination";
 import { intlLocale } from "@/i18n/config";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import { ApiError, type Schemas } from "@/lib/api/client";
-import { userApi } from "@/lib/api/server-client";
+import { adminApi } from "@/lib/api/server-client";
 import { formatDzd } from "@/lib/format";
 
 const statuses: Schemas["OrderStatus"][] = [
@@ -41,7 +41,7 @@ async function Orders({ searchParams }: Pick<PageProps<"/[locale]/admin/orders">
   const attention = params.attention === "1";
   const page = Math.max(1, Number(params.page) || 1);
 
-  const api = await userApi();
+  const api = await adminApi();
   const { data, response } = await api.GET("/api/v1/admin/orders", {
     params: {
       query: {

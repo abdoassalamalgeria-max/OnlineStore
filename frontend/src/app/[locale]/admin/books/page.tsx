@@ -4,7 +4,7 @@ import { BookCover } from "@/components/book-cover";
 import { Pagination } from "@/components/pagination";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import { ApiError } from "@/lib/api/client";
-import { userApi } from "@/lib/api/server-client";
+import { adminApi } from "@/lib/api/server-client";
 import { formatDzd } from "@/lib/format";
 import { inputClass } from "@/components/admin/admin-messages";
 
@@ -39,7 +39,7 @@ async function BooksTable({
   const lowStock = params.lowStock === "1";
   const page = Math.max(1, Number(params.page) || 1);
 
-  const api = await userApi();
+  const api = await adminApi();
   const { data, response } = await api.GET("/api/v1/admin/books", {
     params: {
       query: { search: search || undefined, lowStock: lowStock || undefined, page, pageSize: 20 },

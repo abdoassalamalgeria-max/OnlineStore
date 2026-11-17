@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import { ApiError } from "@/lib/api/client";
-import { userApi } from "@/lib/api/server-client";
+import { adminApi } from "@/lib/api/server-client";
 import { formatDzd } from "@/lib/format";
 
 export default async function AdminOverviewPage() {
@@ -20,7 +20,7 @@ export default async function AdminOverviewPage() {
 async function Overview() {
   const t = await getDictionary();
   const locale = await getLocale();
-  const api = await userApi();
+  const api = await adminApi();
   const { data, response } = await api.GET("/api/v1/admin/overview");
   if (!data) throw new ApiError(response.status, "/api/v1/admin/overview");
 
