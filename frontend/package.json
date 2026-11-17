@@ -12,7 +12,7 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "gen:api": "cd ../backend && dotnet build src/BookStore.Api -p:OpenApiGenerateDocuments=true -v q && cd ../frontend && openapi-typescript src/lib/api/openapi.json -o src/lib/api/schema.d.ts",
     "test": "node --test \"src/**/*.test.ts\""
   },
