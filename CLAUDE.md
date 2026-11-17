@@ -122,7 +122,10 @@ Never commit secrets. Dev: `dotnet user-secrets` on `BookStore.Api`. Docker/prod
   cart/checkout mutations are Server Actions in `src/lib/actions` (they can't use `next/root-params`: pass the
   locale as a hidden field and use `loadDictionary`/`toLocale` from `src/i18n/messages.ts`). `proxy.ts` refreshes
   an expiring access token (deduplicated per refresh token) and forwards `X-Forwarded-For`. Per-user reads use
-  `userApi()` (never inside `"use cache"`), always behind `<Suspense>`.
+  `userApi()` (never inside `"use cache"`), always behind `<Suspense>`. `userApi()` calls `connection()` first:
+  with `partialPrefetching`, `cookies()`/`headers()` do not end the prerendered App Shell, so an uncached fetch
+  after them would run at prerender time ("encountered the unstable value `Date.now()`"). Any new per-user
+  fetch outside `userApi()` must do the same.
 - Guest cart: localStorage (`src/lib/guest-cart.ts`), priced via the `/api/cart/preview` route handler, merged
   into the account cart by the login/register actions.
 - Errors: `app/[locale]/error.tsx` (props `{ error, retry }` in Next 16), `not-found.tsx`, `global-error.tsx`.
