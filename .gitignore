@@ -1,0 +1,33 @@
+# --- Secrets & local env ---
+.env
+.env.*
+!.env.example
+!.env.production.example
+frontend/.env*.local
+
+# --- .NET ---
+**/bin/
+**/obj/
+**/TestResults/
+*.user
+.vs/
+**/wwwroot/uploads/
+
+# --- Node / Next.js ---
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/next-env.d.ts
+*.tsbuildinfo
+npm-debug.log*
+
+# --- Editors / OS ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+Thumbs.db
+.DS_Store
+
+# --- Claude Code (personal) ---
+.claude/settings.local.json
+.claude/notify.ps1

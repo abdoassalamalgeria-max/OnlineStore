@@ -1,0 +1,53 @@
+# Production stack: the API and the Next.js site, both talking to Supabase (no local database).
+#   cp .env.production.example .env.production   # fill in (git-ignored)
+#   docker compose -f docker-compose.prod.yml --env-file .env.production build
+#   docker compose -f docker-compose.prod.yml --env-file .env.production run --rm api migrate   # each deploy
+#   docker compose -f docker-compose.prod.yml --env-file .env.production up -d
+# Put a TLS-terminating proxy (Caddy, Traefik, Nginx, your platform's) in front of both ports.
+name: bookstore-prod
+
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: src/BookStore.Api/Dockerfile
+    restart: unless-stopped
+    env_file: .env.production
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      # Only the web container may set X-Forwarded-For (rate limiting is per client IP).
+      ReverseProxy__KnownProxies__0: 172.30.0.10
+    ports:
+      # Public only for the Chargily webhook (/api/v1/payments/webhooks/chargily) behind HTTPS.
+      - "${API_PORT:-8080}:8080"
+    networks:
+      app:
+        ipv4_address: 172.30.0.20
+    healthcheck:
+      # The aspnet image has bash but no curl; /dev/tcp is a bash feature.
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8080 && printf 'GET /health/live HTTP/1.0\\r\\n\\r\\n' >&3 && grep -q ' 200 ' <&3"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    environment:
+      API_URL: http://172.30.0.20:8080
+      SITE_URL: ${SITE_URL:?SITE_URL must be set in .env.production}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    networks:
+      app:
+        ipv4_address: 172.30.0.10
+    depends_on:
+      api:
+        condition: service_healthy
+
+networks:
+  app:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
