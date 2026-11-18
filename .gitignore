@@ -31,3 +31,6 @@ Thumbs.db
 # --- Claude Code (personal) ---
 .claude/settings.local.json
 .claude/notify.ps1
+
+# --- Deployment output (contains secrets in web.config) ---
+/publish/

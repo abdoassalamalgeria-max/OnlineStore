@@ -2,6 +2,12 @@
   <PropertyGroup>
     <UserSecretsId>8ec55300-b496-40fe-8ae8-4f0245eab90a</UserSecretsId>
     <!--
+      Workstation GC: the Web SDK defaults to Server GC, which reserves a heap per core at startup and fails
+      to initialise the runtime ("failed to load coreclr") under the memory caps of shared/free IIS hosting.
+      A small store doesn't need Server GC's throughput anywhere.
+    -->
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <!--
       Build-time OpenAPI generation (no running server or database needed). Off by default to keep
       builds fast; the frontend's `npm run gen:api` turns it on and writes openapi.json for codegen.
     -->
