@@ -10,9 +10,9 @@ export async function SiteHeader() {
   const t = await getDictionary();
 
   return (
-    <header className="border-border bg-surface border-b">
+    <header className="border-border bg-surface border-t-4 border-b border-t-[var(--gold)] shadow-sm">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
-        <Link href={`/${locale}`} className="text-brand text-xl font-bold">
+        <Link href={`/${locale}`} className="text-brand text-2xl font-bold">
           {t.meta.siteName}
         </Link>
 

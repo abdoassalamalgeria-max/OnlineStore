@@ -29,6 +29,7 @@ export default async function AdminLayout({ children }: LayoutProps<"/[locale]/a
     ["/categories", n.categories],
     ["/wilayas", n.wilayas],
     ["/reviews", n.reviews],
+    ["/users", n.users],
   ];
 
   return (

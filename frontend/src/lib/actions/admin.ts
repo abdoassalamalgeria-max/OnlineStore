@@ -222,6 +222,36 @@ export async function orderAction(_prev: AdminState, formData: FormData): Promis
   return { ok: true };
 }
 
+// ---------------- Users ----------------
+
+export async function updateUser(_prev: AdminState, formData: FormData): Promise<AdminState> {
+  const { api } = await adminApi(formData);
+  const { data, error, response } = await api.PUT("/api/v1/admin/users/{id}", {
+    params: { path: { id: text(formData, "id") } },
+    body: {
+      fullName: text(formData, "fullName"),
+      email: text(formData, "email"),
+      phoneNumber: text(formData, "phoneNumber") || null,
+    },
+  });
+  if (!data) return failure(response.status, error);
+  refresh();
+  return { ok: true };
+}
+
+/** "suspend" or "reactivate". A 409 (admin account) surfaces as the form's "blocked" message. */
+export async function setUserSuspended(_prev: AdminState, formData: FormData): Promise<AdminState> {
+  const { api } = await adminApi(formData);
+  const id = text(formData, "id");
+  const { data, error, response } =
+    text(formData, "action") === "suspend"
+      ? await api.POST("/api/v1/admin/users/{id}/suspend", { params: { path: { id } } })
+      : await api.POST("/api/v1/admin/users/{id}/reactivate", { params: { path: { id } } });
+  if (!data) return failure(response.status, error);
+  refresh();
+  return { ok: true };
+}
+
 export async function deleteReviewAsAdmin(formData: FormData) {
   const { api } = await adminApi(formData);
   await api.DELETE("/api/v1/admin/reviews/{id}", {

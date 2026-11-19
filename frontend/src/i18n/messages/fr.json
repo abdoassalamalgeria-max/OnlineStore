@@ -22,7 +22,19 @@
     "newReleases": "Nouveautés",
     "bestSellers": "Meilleures ventes",
     "bestSellersSoon": "Les meilleures ventes apparaîtront ici après les premières commandes.",
-    "viewAll": "Tout voir"
+    "viewAll": "Tout voir",
+    "sliderLabel": "À la une",
+    "slidePrevious": "Diapositive précédente",
+    "slideNext": "Diapositive suivante",
+    "slideGoTo": "Aller à la diapositive {n}",
+    "slidePause": "Mettre en pause le défilement",
+    "slidePlay": "Reprendre le défilement",
+    "slide2Title": "Les chefs-d'œuvre de la littérature algérienne",
+    "slide2Text": "Ahlam Mosteghanemi, Tahar Ouettar, Malek Bennabi… des livres qui ont façonné notre mémoire.",
+    "slide2Cta": "Découvrir la littérature algérienne",
+    "slide3Title": "Vos livres livrés chez vous",
+    "slide3Text": "Livraison dans les 58 wilayas, paiement sécurisé par carte EDAHABIA ou CIB.",
+    "slide3Cta": "Commencer vos achats"
   },
   "catalog": {
     "searchLabel": "Rechercher un titre ou un auteur",
@@ -217,7 +229,8 @@
       "categories": "Catégories",
       "orders": "Commandes",
       "wilayas": "Wilayas et livraison",
-      "reviews": "Avis"
+      "reviews": "Avis",
+      "users": "Utilisateurs"
     },
     "stats": {
       "books": "Livres",
@@ -301,7 +314,37 @@
     },
     "reviewBook": "Livre",
     "noItems": "Aucun élément.",
-    "actionFailed": "L'opération a échoué."
+    "actionFailed": "L'opération a échoué.",
+    "users": {
+      "search": "Rechercher par nom, e-mail ou téléphone",
+      "all": "Tous les comptes",
+      "activeOnly": "Actifs uniquement",
+      "suspendedOnly": "Suspendus uniquement",
+      "name": "Nom",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "registered": "Inscription",
+      "orders": "Commandes",
+      "status": "Statut",
+      "active": "Actif",
+      "suspended": "Suspendu",
+      "roleAdmin": "Admin",
+      "roleCustomer": "Client",
+      "account": "Compte",
+      "editTitle": "Modifier les informations personnelles",
+      "emailHint": "L'e-mail sert aussi d'identifiant : prévenez le titulaire si vous le changez.",
+      "totalSpent": "Total des achats payés",
+      "lockedUntil": "Bloqué temporairement après des échecs de connexion jusqu'au {date}",
+      "suspend": "Suspendre le compte",
+      "reactivate": "Réactiver le compte",
+      "suspendHint": "Connexion impossible et toutes les sessions sont fermées. Le compte et ses commandes sont conservés.",
+      "reactivateHint": "Le titulaire pourra de nouveau se connecter.",
+      "confirmSuspend": "Suspendre ce compte ? Il sera déconnecté de tous ses appareils.",
+      "cannotSuspendAdmin": "Un compte administrateur ne peut pas être suspendu.",
+      "recentOrders": "Dernières commandes",
+      "noOrders": "Aucune commande.",
+      "back": "Tous les utilisateurs"
+    }
   },
   "errors": {
     "title": "Une erreur est survenue",

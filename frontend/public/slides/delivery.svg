@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 640" preserveAspectRatio="xMidYMid slice"><defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1f3a4f"/><stop offset="1" stop-color="#2a5934"/></linearGradient>
+    <pattern id="stars3" width="80" height="80" patternUnits="userSpaceOnUse">
+    <polygon points="40.0,14.0 44.6,28.9 58.4,21.6 51.1,35.4 66.0,40.0 51.1,44.6 58.4,58.4 44.6,51.1 40.0,66.0 35.4,51.1 21.6,58.4 28.9,44.6 14.0,40.0 28.9,35.4 21.6,21.6 35.4,28.9" fill="none" stroke="#ffffff" stroke-width="1.6" opacity="0.07"/>
+    <circle cx="40" cy="40" r="5" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.07"/>
+  </pattern>
+  </defs>
+  <rect width="1920" height="640" fill="url(#bg3)"/>
+  <rect width="1920" height="640" fill="url(#stars3)"/><path d="M 220 520 C 520 360, 760 600, 1020 430 S 1500 260, 1760 360" fill="none" stroke="#e4c766" stroke-width="5" stroke-dasharray="2 18" stroke-linecap="round" opacity=".9"/><g transform="translate(220 520)"><path d="M0 0 C -22 -30, -22 -58, 0 -64 C 22 -58, 22 -30, 0 0 Z" fill="#c2a02e"/><circle cx="0" cy="-42" r="9" fill="#1e4226"/></g><g transform="translate(1020 430)"><path d="M0 0 C -22 -30, -22 -58, 0 -64 C 22 -58, 22 -30, 0 0 Z" fill="#c2a02e"/><circle cx="0" cy="-42" r="9" fill="#1e4226"/></g><g transform="translate(1760 360)"><path d="M0 0 C -22 -30, -22 -58, 0 -64 C 22 -58, 22 -30, 0 0 Z" fill="#c2a02e"/><circle cx="0" cy="-42" r="9" fill="#1e4226"/></g><rect x="1240" y="450" width="360" height="170" rx="8" fill="#c89a5b"/>
+    <rect x="1240" y="450" width="360" height="26" fill="#000" opacity=".12"/>
+    <rect x="1400" y="450" width="40" height="170" fill="#e8d3a4" opacity=".8"/>
+    <polygon points="1240,450 1180,400 1360,400 1410,450" fill="#d9ab6a"/>
+    <polygon points="1600,450 1660,400 1480,400 1430,450" fill="#b98a4c"/><rect x="1300" y="308" width="40" height="150" rx="3" fill="#7a2e2e"/><rect x="1303" y="320" width="34" height="3" fill="#e4c766" opacity=".7"/><rect x="1346" y="328" width="32" height="130" rx="3" fill="#e9e1cf"/><rect x="1349" y="340" width="26" height="3" fill="#e4c766" opacity=".7"/><rect x="1384" y="293" width="44" height="165" rx="3" fill="#2a5934"/><rect x="1387" y="305" width="38" height="3" fill="#e4c766" opacity=".7"/><rect x="1434" y="338" width="30" height="120" rx="3" fill="#c2a02e"/><rect x="1437" y="350" width="24" height="3" fill="#e4c766" opacity=".7"/><rect x="1470" y="313" width="38" height="145" rx="3" fill="#2f4a6b"/><rect x="1473" y="325" width="32" height="3" fill="#e4c766" opacity=".7"/></svg>

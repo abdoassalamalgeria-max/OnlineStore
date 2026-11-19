@@ -2,6 +2,8 @@ import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { BookGrid, BookGridSkeleton } from "@/components/book-card";
+import { HeroSlider, type Slide } from "@/components/hero-slider";
+import { directionOf } from "@/i18n/config";
 import { getDictionary, getLocale, type Dictionary } from "@/i18n/dictionaries";
 import { getBooks, type BookFilters } from "@/lib/api/catalog";
 
@@ -9,19 +11,48 @@ export default async function HomePage() {
   const locale = await getLocale();
   const t = await getDictionary();
 
+  const h = t.home;
+  // Illustrations live in public/slides/ (regenerate with `node scripts/generate-slides.mjs`, or drop in
+  // your own 1920×640 images with the same names).
+  const slides: Slide[] = [
+    {
+      image: "/slides/shelves.svg",
+      title: h.heroTitle,
+      text: h.heroText,
+      cta: { href: `/${locale}/books`, label: h.browseAll },
+    },
+    {
+      image: "/slides/literature.svg",
+      title: h.slide2Title,
+      text: h.slide2Text,
+      cta: { href: `/${locale}/books?category=algerian-literature`, label: h.slide2Cta },
+    },
+    {
+      image: "/slides/delivery.svg",
+      title: h.slide3Title,
+      text: h.slide3Text,
+      cta: { href: `/${locale}/books?inStock=1`, label: h.slide3Cta },
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-12">
-      {/* Static hero: part of the prerendered shell. */}
-      <section className="bg-brand rounded-2xl px-6 py-12 text-white sm:px-12">
-        <h1 className="text-3xl font-bold sm:text-4xl">{t.home.heroTitle}</h1>
-        <p className="mt-3 max-w-2xl text-lg text-white/90">{t.home.heroText}</p>
-        <Link
-          href={`/${locale}/books`}
-          className="text-brand mt-6 inline-block rounded-md bg-white px-5 py-2.5 font-medium hover:bg-white/90"
-        >
-          {t.home.browseAll}
-        </Link>
-      </section>
+      {/* Static: part of the prerendered shell. -mt-8 cancels <main>'s top padding so it meets the header. */}
+      <div className="-mt-8">
+        <h1 className="sr-only">{t.meta.siteName}</h1>
+        <HeroSlider
+          slides={slides}
+          dir={directionOf(locale)}
+          labels={{
+            carousel: h.sliderLabel,
+            previous: h.slidePrevious,
+            next: h.slideNext,
+            goTo: h.slideGoTo,
+            pause: h.slidePause,
+            play: h.slidePlay,
+          }}
+        />
+      </div>
 
       <BookSection
         title={t.home.featured}

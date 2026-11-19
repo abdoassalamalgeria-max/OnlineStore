@@ -62,6 +62,7 @@ internal static class IdentitySetup
         services.AddScoped<AuthService>();
         services.AddScoped<IAuthService>(sp => sp.GetRequiredService<AuthService>());
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<BookStore.Application.Features.Admin.IAdminUserService, AdminUserService>();
         return services;
     }
 }

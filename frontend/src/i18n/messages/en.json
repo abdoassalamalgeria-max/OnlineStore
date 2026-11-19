@@ -22,7 +22,19 @@
     "newReleases": "New releases",
     "bestSellers": "Best sellers",
     "bestSellersSoon": "Best sellers will appear here once the first orders come in.",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "sliderLabel": "Highlights",
+    "slidePrevious": "Previous slide",
+    "slideNext": "Next slide",
+    "slideGoTo": "Go to slide {n}",
+    "slidePause": "Pause slideshow",
+    "slidePlay": "Play slideshow",
+    "slide2Title": "Treasures of Algerian literature",
+    "slide2Text": "Ahlam Mosteghanemi, Tahar Ouettar, Malek Bennabi and more: books that shaped our memory.",
+    "slide2Cta": "Explore Algerian literature",
+    "slide3Title": "Books delivered to your door",
+    "slide3Text": "Delivery to all 58 wilayas, secure payment by EDAHABIA or CIB card.",
+    "slide3Cta": "Start shopping"
   },
   "catalog": {
     "searchLabel": "Search by title or author",
@@ -217,7 +229,8 @@
       "categories": "Categories",
       "orders": "Orders",
       "wilayas": "Wilayas & delivery",
-      "reviews": "Reviews"
+      "reviews": "Reviews",
+      "users": "Users"
     },
     "stats": {
       "books": "Books",
@@ -301,7 +314,37 @@
     },
     "reviewBook": "Book",
     "noItems": "Nothing here.",
-    "actionFailed": "The action failed."
+    "actionFailed": "The action failed.",
+    "users": {
+      "search": "Search by name, email or phone",
+      "all": "All accounts",
+      "activeOnly": "Active only",
+      "suspendedOnly": "Suspended only",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "registered": "Registered",
+      "orders": "Orders",
+      "status": "Status",
+      "active": "Active",
+      "suspended": "Suspended",
+      "roleAdmin": "Admin",
+      "roleCustomer": "Customer",
+      "account": "Account",
+      "editTitle": "Edit personal details",
+      "emailHint": "The email is also the sign-in name: let the account holder know if you change it.",
+      "totalSpent": "Total paid purchases",
+      "lockedUntil": "Temporarily locked after failed sign-ins until {date}",
+      "suspend": "Suspend account",
+      "reactivate": "Reactivate account",
+      "suspendHint": "Sign-in is blocked and all sessions end. The account and its orders are kept.",
+      "reactivateHint": "The account holder can sign in again.",
+      "confirmSuspend": "Suspend this account? It will be signed out on every device.",
+      "cannotSuspendAdmin": "Admin accounts can't be suspended.",
+      "recentOrders": "Latest orders",
+      "noOrders": "No orders.",
+      "back": "All users"
+    }
   },
   "errors": {
     "title": "Something went wrong",

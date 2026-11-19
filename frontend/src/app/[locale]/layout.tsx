@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Noto_Naskh_Arabic } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { directionOf, locales } from "@/i18n/config";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import "../globals.css";
 
-// Arabic-first typeface that also covers Latin script (fr/en).
-const plexArabic = IBM_Plex_Sans_Arabic({
-  variable: "--font-plex-arabic",
+// Classic Naskh for Arabic (a traditional book face); variable weight 400–700.
+const naskhArabic = Noto_Naskh_Arabic({
+  variable: "--font-naskh-arabic",
   subsets: ["arabic", "latin"],
-  weight: ["400", "500", "700"],
 });
 
 // One prerendered shell per UI language: /ar, /fr, /en.
@@ -40,7 +39,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
     <html
       lang={locale}
       dir={directionOf(locale)}
-      className={`${plexArabic.variable} h-full antialiased`}
+      className={`${naskhArabic.variable} h-full antialiased`}
     >
       <body className="bg-background text-foreground flex min-h-full flex-col">
         <a
