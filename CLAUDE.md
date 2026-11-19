@@ -190,7 +190,11 @@ Never commit secrets. Dev: `dotnet user-secrets` on `BookStore.Api`. Docker/prod
   are at Warning.
 - `docker-compose.prod.yml`: `api` + `web` on a fixed subnet; `web` (172.30.0.10) is the only trusted
   `X-Forwarded-For` sender (`ReverseProxy:KnownProxies`; `ReverseProxy:KnownNetworks` takes CIDRs).
-- **Shared IIS hosting (MonsterASP)**: API published with `dotnet publish -c Release -r win-x64 --self-contained false
+- **Current deployment**: web on Vercel (Root Directory `frontend`, env `API_URL` + `SITE_URL`) and API on Render
+  (Docker, Root Directory `backend`, Dockerfile `./src/BookStore.Api/Dockerfile`, env from `.env.production.example`
+  + `PORT=8080`, health check `/health/ready`). Both auto-deploy from `main`. Migrations are applied to Supabase
+  separately with the `migrate` command. Render Free sleeps after 15 min idle (first request ~1 min).
+- **Shared IIS hosting (MonsterASP)** (tried, abandoned: HTTPS is paid on the free plan and requests from Vercel got 404): API published with `dotnet publish -c Release -r win-x64 --self-contained false
   -o publish/api` (`publish/` is git-ignored: its `web.config` carries the production env vars). The site's app pool
   must be **x64** — an x86 pool fails with "failed to load coreclr". Server GC is off (`ServerGarbageCollection=false`)
   for memory-capped hosts. If startup fails with no access to logs, set env `STARTUP_ERROR_KEY` (16+ chars): Program.cs

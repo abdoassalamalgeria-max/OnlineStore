@@ -235,6 +235,41 @@ docker-compose.prod.yml          الإنتاج: الـ API + الموقع مع 
 لا تُرفع أي أسرار إلى المستودع. في التطوير تُحفظ في `dotnet user-secrets`، وفي Docker والإنتاج
 تُمرَّر كمتغيرات بيئة (مثل `ConnectionStrings__Default`). ملف `.env` مستثنى من git، و`.env.example` يوضح المفاتيح المطلوبة.
 
+## النشر الحالي: Render + Vercel (مجاني، مع HTTPS)
+
+هذا ما يعمل الآن في التجربة. كلاهما ينشر تلقائياً من فرع `main` على GitHub مع كل push.
+
+| الجزء | المنصة | الرابط |
+|---|---|---|
+| الموقع (Next.js) | Vercel | `https://online-store-blush-psi.vercel.app` |
+| الـ API (.NET 10) | Render (Docker، خطة Free، منطقة Frankfurt) | `https://bookstore-api-x394.onrender.com` |
+| قاعدة البيانات والأغلفة | Supabase (Session pooler، باريس) | — |
+
+**Render (Web Service):**
+
+| الحقل | القيمة |
+|---|---|
+| Language | Docker |
+| Root Directory | `backend` |
+| Dockerfile Path | `./src/BookStore.Api/Dockerfile` |
+| Health Check Path | `/health/ready` |
+
+متغيرات البيئة هي نفسها التي في `.env.production.example`، ومعها:
+- `PORT=8080`: المنفذ الذي يستمع عليه الـ API داخل الصورة.
+- `Chargily__WebhookUrl=https://<api>.onrender.com/api/v1/payments/webhooks/chargily`.
+- `Checkout__FrontendBaseUrl` و`Cors__AllowedOrigins__0`: رابط الموقع على Vercel.
+
+**Vercel:**
+- Root Directory = `frontend`.
+- متغيرات البيئة: `API_URL` (رابط Render) و`SITE_URL` (رابط الموقع، مع تفعيل Production).
+- بعد أي تغيير في المتغيرات اضغط **Redeploy**.
+- يُفضَّل ضبط Function Region على `fra1` (Frankfurt)، قرب الـ API.
+
+**ملاحظات:**
+- **خطة Render المجانية:** ينام الـ API بعد 15 دقيقة دون زيارات، وأول طلب بعدها يستغرق قرابة دقيقة. لإبقائه مستيقظاً، استعمل مهمة مجانية (cron-job.org مثلاً) تزور `/health/live` كل 10 دقائق.
+- **لماذا لا MonsterASP:** جرّبنا الـ API عليها. HTTPS مدفوع في خطتها المجانية، وطلبات خوادم Vercel إليها كانت تُرفض بـ 404. إن استُعملت استضافة IIS، فانظر ملاحظات «Shared IIS hosting» في CLAUDE.md، وأهمها أن الـ App Pool يجب أن يكون x64.
+- **قاعدة البيانات:** طُبّقت الـ migrations عليها مسبقاً بأمر `migrate` من جهاز التطوير، فلا تحتاج المنصتان إلى ذلك. أعد تنفيذه عند إضافة migration جديدة (انظر أدناه).
+
 ## النشر (Supabase + Docker)
 
 يتكون الإنتاج من حاويتين: الـ API (`backend/src/BookStore.Api/Dockerfile`) والموقع (`frontend/Dockerfile`).
